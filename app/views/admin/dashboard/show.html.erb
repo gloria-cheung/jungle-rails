@@ -8,7 +8,8 @@
     <div class="card">
       <h5 class="card-header">Products</h5>
       <div class="card-body">
-        <p class="card-text">Count: <%= @product_count%></p>
+        <p class="card-text">Count: <%= @product_count%> </p>
+        <footer><%= link_to 'Go to Products', [:admin, :products], class: 'btn btn-info' %></footer>
       </div>
     </div>
   </div>
