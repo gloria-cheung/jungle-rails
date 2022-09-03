@@ -1,8 +1,8 @@
 class Admin::SalesController < ApplicationController
   def index
-    @sales = 
+    @sales = Sale.all
   end
-  
+
   def new
   end
 end
