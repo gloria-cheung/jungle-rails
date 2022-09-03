@@ -17,7 +17,12 @@ class ApplicationController < ActionController::Base
   helper_method :enhanced_cart
 
   def cart_subtotal_cents
-    enhanced_cart.map {|entry| entry[:product].price_cents * entry[:quantity]}.sum
+    if current_sale 
+      discount = 1 - current_sale.percent_off * 0.01
+      (enhanced_cart.map {|entry| entry[:product].price_cents * entry[:quantity]}.sum * discount).round()
+    else
+      enhanced_cart.map {|entry| entry[:product].price_cents * entry[:quantity]}.sum
+    end
   end
   helper_method :cart_subtotal_cents
 
@@ -38,5 +43,10 @@ class ApplicationController < ActionController::Base
   def authorize
     redirect_to '/sessions/new' unless current_user
   end
+
+  def current_sale
+    @current_sale ||= Sale.find_by("sales.starts_on <= ? AND sales.ends_on >= ?", Date.current, Date.current)
+  end
+  helper_method :current_sale
 
 end

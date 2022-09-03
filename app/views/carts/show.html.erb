@@ -26,7 +26,11 @@
       <tfoot>
         <tr>
           <th colspan="4">
+          <% if current_sale %>
+            DISCOUNTED TOTAL:
+          <% else %>
             TOTAL:
+          <% end %>
           </th>
           <th>
             $<%= cart_subtotal_cents / 100.0 %>
