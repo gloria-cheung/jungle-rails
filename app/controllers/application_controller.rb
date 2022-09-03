@@ -39,4 +39,9 @@ class ApplicationController < ActionController::Base
     redirect_to '/sessions/new' unless current_user
   end
 
+  def current_sale
+    @current_sale ||= Sale.find_by("sales.starts_on <= ? AND sales.ends_on >= ?", Date.current, Date.current)
+  end
+  helper_method :current_sale
+
 end
